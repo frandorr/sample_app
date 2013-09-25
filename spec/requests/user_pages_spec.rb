@@ -14,14 +14,22 @@ describe "User pages" do
 
   # Signup Tests:
   describe "signup" do
-  	# Click create account without filling the form:
+  	
     before { visit signup_path }
 
     let(:submit) { "Create my account" }
 
     describe "with invalid information" do
+    # User shouldn't create account without filling the form:
       it "should not create a user" do
         expect { click_button submit }.not_to change(User, :count)
+	  end
+
+      describe "after submission" do
+        before { click_button submit }
+
+        it { should have_title('Sign up') }
+        it { should have_content('error') }
       end
     end
 

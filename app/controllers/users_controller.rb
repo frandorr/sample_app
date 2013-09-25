@@ -6,4 +6,26 @@ class UsersController < ApplicationController
   def show
   	@user = User.find(params[:id]) # it'll return the user id
   end
+
+
+  def create
+    @user = User.new(user_params) #user params is defined as private (strong)
+    if @user.save
+      # Handle a successful save.
+    else
+      render 'new'
+    end
+  end
+
+
+  #Strong parameters. To avoid malicious attacks, permited params should be
+  # literally known. It's private, because we didn't want it to be available
+  # in Web 
+
+  private
+
+    def user_params
+      params.require(:user).permit(:name, :email, :password,
+                                   :password_confirmation)
+    end
 end
