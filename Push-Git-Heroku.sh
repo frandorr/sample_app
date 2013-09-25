@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Do you want ONLY to commit? y/N"
+echo "Do you want to PUSH it to Github and Heroku? y/N"
 read cans
 echo "Have you change statics (CSS, etc)? y/N"
 read ans
@@ -13,7 +13,7 @@ echo "Enter commit message: "
 read msg
 git commit -m msg
 echo "Commited done\n"
-if [ "$cans" = "N" ]; then
+if [ "$cans" = "y" ]; then
 	echo "Checkout master..."
 	git co master
 	echo "Pushing into github"
