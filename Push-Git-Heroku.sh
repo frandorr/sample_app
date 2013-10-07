@@ -16,6 +16,10 @@ echo "Commited done\n"
 if [ "$cans" = "y" ]; then
 	echo "Checkout master..."
 	git co master
+	echo "Enter branch to merge name: "
+	read branch
+	git merge branch
+	git commit -m msg
 	echo "Pushing into github"
 	git push
 	echo "Pushing into heroku"
