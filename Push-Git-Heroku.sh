@@ -18,7 +18,7 @@ if [ "$cans" = "y" ]; then
 	git co master
 	echo "Enter branch to merge name: "
 	read branch
-	git merge branch
+	git merge $branch
 	git commit -m msg
 	echo "Pushing into github"
 	git push
