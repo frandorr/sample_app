@@ -8,6 +8,8 @@ class SessionsController < ApplicationController
   #iff the password is correct
   if user && user.authenticate(params[:session][:password])
     # Sign the user in and redirect to the user's show page.
+    sign_in user
+    redirect_to user
   else
   	#we use flash.now because we want it to disappear when a new request is done.
   	#otherwise it stills there...
@@ -17,5 +19,8 @@ class SessionsController < ApplicationController
 end
 
   def destroy
+    #when user logout
+    sign_out
+    redirect_to root_url
   end
 end

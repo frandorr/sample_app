@@ -11,6 +11,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params) #user params is defined as private (strong)
     if @user.save
+    	#user signin after signup
+    	sign_in @user
     	redirect_to @user
     	flash[:success] = "Welcome #{@user.name}!"
     else
