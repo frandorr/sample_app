@@ -22,10 +22,25 @@ module SessionsHelper
 		@current_user ||= User.find_by(remember_token: remember_token)
 	end
 
+	def current_user?(user)
+		user == current_user
+	end
+
 	def sign_out
 		#when user signout, the current user is set to nil
 		#and the cookie is deleted
 		self.current_user = nil
 		cookies.delete(:remember_token)
+	end
+
+	def redirect_back_or(default)
+		redirect_to(session[:return_to] || default)
+		session.delete(:return_to)
+	end
+
+	def store_location
+		#Store target location (only if request=get). (For example, if user request a page but
+		# it's not signed in. It remembers the request)
+		session[:return_to] = request.url if request.get?
 	end
 end
