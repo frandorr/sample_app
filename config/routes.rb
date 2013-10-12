@@ -2,8 +2,7 @@ SampleApp::Application.routes.draw do
   #REST resources
 
   resources :users
-  resources :sessions, only: [:new, :create, :destroy]
-  
+
 # RESTful routes provided by the Users resource: 
 # GET /users  index users_path  page to list all users
 # GET /users/1  show  user_path(user) page to show user
@@ -12,6 +11,13 @@ SampleApp::Application.routes.draw do
 # GET /users/1/edit edit  edit_user_path(user)  page to edit user with id 1
 # PATCH /users/1  update  user_path(user) update user
 # DELETE  /users/1  destroy user_path(user) delete user
+
+  resources :sessions, only: [:new, :create, :destroy]
+  resources :microposts, only: [:create, :destroy]
+
+#   POST  /microposts create  create a new micropost
+# DELETE  /microposts/1 destroy delete micropost with id 1
+
 
   root  'static_pages#home'
   match '/help',    to: 'static_pages#help',    via: 'get'
