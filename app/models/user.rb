@@ -1,5 +1,10 @@
 class User < ActiveRecord::Base
-	#before_save callback. Emails downcase to avoid problems with database
+
+	#dependent: :destroy = when destroy user, destroy its microposts
+	has_many :microposts, dependent: :destroy
+
+	#before_save callback. 
+	#Emails downcase to avoid problems with database
 	before_save { self.email = email.downcase }	
 	before_create :create_remember_token
 
