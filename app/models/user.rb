@@ -2,6 +2,9 @@ class User < ActiveRecord::Base
 
 	#dependent: :destroy = when destroy user, destroy its microposts
 	has_many :microposts, dependent: :destroy
+	# users are now identified with the foreign key follower_id
+	# we add dependent destroy so when we destroy an user the relatinship get destroyed aswell
+	has_many :relationships, foreign_key: "follower_id", dependent: :destroy
 
 	#before_save callback. 
 	#Emails downcase to avoid problems with database
