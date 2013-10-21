@@ -6,6 +6,16 @@ class User < ActiveRecord::Base
 	# we add dependent destroy so when we destroy an user the relatinship get destroyed aswell
 	has_many :relationships, foreign_key: "follower_id", dependent: :destroy
 
+	#A user follows many users through the user.followed. We override this
+	#to use followed_users instead with "source"
+	has_many :followed_users, through: :relationships, source: :followed
+	
+	#Here we add class_name, otherwise rails will look the class ReverseRelationship
+	has_many :reverse_relationships, foreign_key: "followed_id",
+																	 class_name: "Relationship",
+																	 dependent:  :destroy
+	has_many :followers, through: :reverse_relationships, source: :follower
+
 	#before_save callback. 
 	#Emails downcase to avoid problems with database
 	before_save { self.email = email.downcase }	
@@ -36,7 +46,17 @@ class User < ActiveRecord::Base
 		Micropost.where("user_id = ?", id)
 	end
 
+	def following?(other_user)
+		relationships.find_by(followed_id: other_user.id)
+	end
 
+	def follow!(other_user)
+		relationships.create!(followed_id: other_user.id)
+	end
+
+	def unfollow!(other_user)
+		relationships.find_by(followed_id: other_user.id).destroy!
+	end
 	private
 
 		def create_remember_token

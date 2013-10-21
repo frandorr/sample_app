@@ -1,7 +1,14 @@
 SampleApp::Application.routes.draw do
   #REST resources
 
-  resources :users
+  resources :users do
+    # routes lool like /users/1/following and /users/1/followers
+    # GET /users/1/following  following following_user_path(1)
+    # GET /users/1/followers  followers followers_user_path(1)
+    member do
+      get :following, :followers
+    end
+  end
 
 # RESTful routes provided by the Users resource: 
 # GET /users  index users_path  page to list all users
