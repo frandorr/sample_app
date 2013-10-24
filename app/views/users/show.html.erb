@@ -22,4 +22,14 @@
       <%= will_paginate @microposts %>
     <% end %>
   </div>
+  <div class="span8">
+    <!-- swaps -->
+    <% if @user.swaps.any? %>
+      <h3>Swaps (<%= @user.swaps.count %>)</h3>
+      <ol class="swaps">
+        <%= render @swaps %>
+      </ol>
+      <%= will_paginate @swaps %>
+    <% end %>
+  </div>
 </div>

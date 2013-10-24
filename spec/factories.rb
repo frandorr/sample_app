@@ -14,4 +14,11 @@ FactoryGirl.define do
   	content "Lorem ipsum"
   	user #we tell Factory Girl about the micropost's associated user
   end
+
+  factory :swap do 
+    description "Lorem ipsum"
+    offer "habemus papam"
+    want "Francesco de Asici"
+    user
+  end
 end

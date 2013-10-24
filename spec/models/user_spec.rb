@@ -27,6 +27,8 @@ describe User do
   it { should respond_to(:following?) }
   it { should respond_to(:follow!) }
   it { should respond_to(:unfollow!) }
+  #swaps
+  it { should respond_to(:swaps) }
 
   it { should be_valid }
   it { should_not be_admin }
@@ -223,6 +225,30 @@ describe User do
 
       it { should_not be_following(other_user) }
       its(:followed_users) { should_not include(other_user) }
+    end
+  end
+
+  describe "swap associations" do 
+
+    before { @user.save }
+    let!(:older_swap) do 
+      FactoryGirl.create(:swap, user: @user, created_at: 1.day.ago)
+    end
+    let!(:newer_swap) do 
+      FactoryGirl.create(:swap, user: @user, created_at: 1.hour.ago)
+    end
+
+    it "should have the rigth swap in the right order" do 
+      expect(@user.swaps.to_a).to eq [newer_swap, older_swap]
+    end
+
+    it "should destroy associated swaps" do 
+      swaps = @user.swaps.to_a
+      @user.destroy
+      expect(swaps).not_to be_empty
+      swaps.each do |swap|
+        expect(Swap.where(id: swap.id)).to be_empty
+      end
     end
   end
 end

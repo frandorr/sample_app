@@ -53,7 +53,12 @@ describe "User pages" do
     let(:user) { FactoryGirl.create(:user) }
     let!(:m1) { FactoryGirl.create(:micropost, user: user, content: "Foo") }
     let!(:m2) { FactoryGirl.create(:micropost, user: user, content: "Bar") }
-  
+    let!(:s1) { FactoryGirl.create(:swap, user: user, description: "Busco intercambio",
+                                    offer: "tabla de surf", want: "intercambio")}
+    let!(:s2) { FactoryGirl.create(:swap, user: user, description: "Quiero aprender inglés",
+                                    offer: "Canasta de frutos", want: "Clase inglés")}
+
+
     before { visit user_path(user) }
 
     it { should have_content(user.name) }
@@ -63,6 +68,12 @@ describe "User pages" do
       it { should have_content(m1.content) }
       it { should have_content(m2.content) }
       it { should have_content(user.microposts.count) }
+    end
+
+    describe "swap" do
+      it { should have_content(s1.description) }
+      it { should have_content(s2.description) }
+      it { should have_content(user.swaps.count) }
     end
 
     describe "follow/unfollow buttons" do 

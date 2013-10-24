@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
 																	 dependent:  :destroy
 	has_many :followers, through: :reverse_relationships, source: :follower
 
+	has_many :swaps, dependent: :destroy
 	#before_save callback. 
 	#Emails downcase to avoid problems with database
 	before_save { self.email = email.downcase }	

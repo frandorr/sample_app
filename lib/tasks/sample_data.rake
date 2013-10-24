@@ -4,6 +4,7 @@ namespace :db do
     make_users
     make_microposts
     make_relationships
+    make_swaps
   end
 end
 
@@ -39,4 +40,14 @@ def make_relationships
   followers      = users[3..40]
   followed_users.each { |followed| user.follow!(followed) }
   followers.each      { |follower| follower.follow!(user) }
+end
+
+def make_swaps
+  users = User.all(limit: 3)
+  50.times do
+    description = Faker::Lorem.sentence(5)
+    offer = Faker::Lorem.sentence(10)
+    want = Faker::Lorem.sentence(4)
+    users.each { |user| user.swaps.create!(description: description, offer: offer, want: want) }
+  end
 end
