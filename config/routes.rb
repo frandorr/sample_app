@@ -20,12 +20,18 @@ SampleApp::Application.routes.draw do
 # DELETE  /users/1  destroy user_path(user) delete user
 
   resources :sessions, only: [:new, :create, :destroy]
-  resources :microposts, only: [:create, :destroy]
-  resources :relationships, only: [:create, :destroy]
 
 #   POST  /microposts create  create a new micropost
 # DELETE  /microposts/1 destroy delete micropost with id 1
 
+  resources :microposts, only: [:create, :destroy]
+  resources :relationships, only: [:create, :destroy]
+
+#   POST  /swaps create  create a new swap
+# DELETE  /swaps/1 destroy delete swap with id 1
+# PATCH   /swaps/1 update swap_path(swap)
+
+  resources :swaps, only: [:create, :destroy, :update]
 
   root  'static_pages#home'
   match '/help',    to: 'static_pages#help',    via: 'get'
