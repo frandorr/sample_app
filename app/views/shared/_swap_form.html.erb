@@ -1,0 +1,17 @@
+<%= form_for(@swap) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="field">
+    <%= f.text_area :description, placeholder: "Compose new swap" %>
+  </div>
+
+  <div class="field">
+  	<%= f.text_area :offer, placeholder: "What you offer" %>
+  </div>
+
+  <div class="field">
+  	<%= f.text_area :want, placeholder: "What you want" %>
+  </div>
+
+  <%= f.submit "Create", class: "btn btn-large btn-primary" %>
+<% end %>
+

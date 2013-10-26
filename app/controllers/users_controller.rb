@@ -68,6 +68,7 @@ class UsersController < ApplicationController
     @users = @user.followers.paginate(page: params[:page])
     render 'show_follow'
   end
+
   #Strong parameters. To avoid malicious attacks, permited params should be
   # literally known. It's private, because we didn't want it to be available
   # in Web 
