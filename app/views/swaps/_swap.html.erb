@@ -1,5 +1,9 @@
 <li>
-  <span class="description"><%= swap.description %></span>
+  <span class="description"><b><%= swap.description %></b></span>
+  <h5> Offer: </h5>
+  <span class="offer"><%= swap.offer %></span>
+  <h5> Want: </h5>
+  <span class="want"><%= swap.want %></span>
   <span class="timestamp">
     Posted <%= time_ago_in_words(swap.created_at) %> ago.
   </span>
