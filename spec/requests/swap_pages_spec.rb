@@ -10,7 +10,7 @@ describe "Swap pages" do
 
 
   describe "swap creation" do
-    before { visit root_path }
+    before { visit swaps_path }
 
     describe "with invalid information" do
 

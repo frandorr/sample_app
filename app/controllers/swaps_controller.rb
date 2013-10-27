@@ -1,14 +1,18 @@
 class SwapsController < ApplicationController
 	before_action :signed_in_user, only: [:create, :destroy, :update]
 
+	def new
+		#TODO: redirect_to login if user not signed in
+		@swap = Swap.new
+	end
+
 	def create
 		@swap = current_user.swaps.build(swap_params)
 		if @swap.save
 			flash[:success] = "Swap created!"
-			redirect_to root_url
+			redirect_to swaps_path
 		else
-			@feed_items = []
-			render 'static_pages/home'
+			render 'static_pages/swaps'
 		end
 	end
 
