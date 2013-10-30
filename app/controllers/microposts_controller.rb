@@ -8,6 +8,10 @@ class MicropostsController < ApplicationController
       flash[:success] = "Micropost created!"
       redirect_to root_url
     else
+      @swap = current_user.swaps.build #CHECK: it there a better way?
+                                       #I use this so @swap isnt nil 
+                                       #But i dont want calling it from
+                                       #micropost create
       @feed_items = []
       render 'static_pages/home'
     end
