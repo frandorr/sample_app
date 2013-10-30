@@ -10,9 +10,9 @@ class MicropostsController < ApplicationController
     else
       @swap = current_user.swaps.build #CHECK: it there a better way?
                                        #I use this so @swap isnt nil 
-                                       #But i dont want calling it from
+                                       #But i dont want to instantiate it from
                                        #micropost create
-      @feed_items = []
+      @feed_items = current_user.feed.paginate(page: params[:page])
       render 'static_pages/home'
     end
   end

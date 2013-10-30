@@ -10,15 +10,6 @@
     <section>
       <%= render 'shared/stats' %>
     </section>
-
-    <section>
-        <%= render 'shared/micropost_form' %>
-    </section>
-
-    <section>
-        <%= render 'shared/swap_form' %>
-    </section>
-
   </aside>
   <!-- Follow Form and Microposts: -->
   <div class="span8">
@@ -31,8 +22,10 @@
       <%= will_paginate @microposts %>
     <% end %>
   </div>
-  <div class="span8">
+
     <!-- swaps -->
+
+  <div class="span8">
     <% if @user.swaps.any? %>
       <h3>Swaps (<%= @user.swaps.count %>)</h3>
       <ol class="swaps">
