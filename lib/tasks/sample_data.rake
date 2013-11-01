@@ -48,6 +48,8 @@ def make_swaps
     description = Faker::Lorem.sentence(5)
     offer = Faker::Lorem.sentence(10)
     want = Faker::Lorem.sentence(4)
-    users.each { |user| user.swaps.create!(description: description, offer: offer, want: want) }
+    tag_list = Faker::Lorem.words(1).to_s + ', ' + Faker::Lorem.words(1).to_s
+    users.each { |user| user.swaps.create!(description: description, 
+                    offer: offer, want: want, tag_list: tag_list) }
   end
 end

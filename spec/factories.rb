@@ -19,6 +19,7 @@ FactoryGirl.define do
     description "Lorem ipsum"
     offer "habemus papam"
     want "Francesco de Asici"
+    tag_list "guitarra, piano, viaje"
     user
   end
 end

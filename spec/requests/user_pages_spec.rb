@@ -54,9 +54,11 @@ describe "User pages" do
     let!(:m1) { FactoryGirl.create(:micropost, user: user, content: "Foo") }
     let!(:m2) { FactoryGirl.create(:micropost, user: user, content: "Bar") }
     let!(:s1) { FactoryGirl.create(:swap, user: user, description: "Busco intercambio",
-                                    offer: "tabla de surf", want: "intercambio")}
+                                    offer: "tabla de surf", want: "intercambio", 
+                                    tag_list: "intercambio, surf")}
     let!(:s2) { FactoryGirl.create(:swap, user: user, description: "Quiero aprender inglés",
-                                    offer: "Canasta de frutos", want: "Clase inglés")}
+                                    offer: "Canasta de frutos", want: "Clase inglés",
+                                    tag_list: "canasta-de-frutos, inglés")}
 
 
     before { visit user_path(user) }

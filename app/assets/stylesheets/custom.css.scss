@@ -255,9 +255,15 @@ input {
   }
 }
 
-.description {
+.description{
+  display: block;
+  font-size: 1.2em; 
+  line-height: 1.6em;
+}
+.offer,.want,.tag_list {
   display: block;
 }
+
 
 .span8{
   width:200px;

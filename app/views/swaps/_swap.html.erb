@@ -1,17 +1,15 @@
 <li>
   <span class="description"><b><%= swap.description %></b></span>
-  <h5> Offer: </h5>
-  <span class="offer"><%= swap.offer %></span>
-  <h5> Want: </h5>
-  <span class="want"><%= swap.want %></span>
-
-  <span>
-  	Tags: <%= raw swap.tag_list.map { |t| link_to t, 
+  <span class="offer"><b>Offer: </b><%= swap.offer %></span>
+  <span class="want"><b>Want: </b><%= swap.want %></span>
+  <span class="tag_list">
+  	<b>Tags: </b> <%= raw swap.tag_list.map { |t| link_to t, 
   								tag_path(t) }.join(', ') %>
   </span>
 
   <span class="timestamp">
-    Posted <%= time_ago_in_words(swap.created_at) %> ago.
+    Posted <%= time_ago_in_words(swap.created_at) %> ago by 
+    <%= swap.user.name %>
   </span>
   
 </li>
