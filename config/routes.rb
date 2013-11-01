@@ -31,7 +31,9 @@ SampleApp::Application.routes.draw do
 # DELETE  /swaps/1 destroy delete swap with id 1
 # PATCH   /swaps/1 update swap_path(swap)
 
-  resources :swaps, only: [:create, :destroy, :update]
+  resources :swaps, only: [:index, :create, :destroy, :update]
+
+  get 'tags/:tag', to: 'swaps#index', as: :tag
 
   root  'static_pages#home'
   match '/help',    to: 'static_pages#help',    via: 'get'

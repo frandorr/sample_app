@@ -4,7 +4,14 @@
   <span class="offer"><%= swap.offer %></span>
   <h5> Want: </h5>
   <span class="want"><%= swap.want %></span>
+
+  <span>
+  	Tags: <%= raw swap.tag_list.map { |t| link_to t, 
+  								tag_path(t) }.join(', ') %>
+  </span>
+
   <span class="timestamp">
     Posted <%= time_ago_in_words(swap.created_at) %> ago.
   </span>
+  
 </li>

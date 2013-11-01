@@ -1,24 +1,17 @@
-<% provide(:title, "User swaps") %>
-<div class="row">
-  <aside class="span4">
-    <section>
-      <h1>
-        <%= gravatar_for current_user, size: 40 %>
-        <%= current_user.name %> swaps 
-      </h1>
-    </section>
-    <section>
-      <%= render 'shared/stats' %>
-    </section>
-  </aside>
-  <div class="span8">
-    <!-- swaps -->
-    <% if current_user.swaps.any? %>
-      <h3>Swaps (<%= current_user.swaps.count %>)</h3>
-      <ol class="swaps">
-        <%= render current_user.swaps %>
-      </ol>
-      <%= will_paginate current_user.swaps %>
-    <% end %>
-  </div>
+<% provide(:title, "Swaps") %>
+<h1>Swaps</h1>
+
+<!-- TODO: arreglar esto que se ve mal -->
+<div id="tag_cloud">
+	<%= tag_cloud Swap.tag_counts, %w[s m l] do |tag, css_class| %>
+		<%= link_to tag.name, tag_path(tag.name), class: css_class %>
+	<% end %>
 </div>
+
+
+<!-- Show each user name and its gravatar -->
+<ul class="swaps">
+<!-- ruby automatically looks for a partial called _user.hrml.erb -->
+      <%= render @swaps %>
+</ul>
+

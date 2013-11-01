@@ -12,6 +12,10 @@
   	<%= f.text_area :want, placeholder: "What you want" %>
   </div>
 
+  <div class="field">
+    <%= f.text_field :tag_list, 
+                  placeholder: "Tags (separated by commas)" %>
+  </div>
   <%= f.submit "Create", class: "btn btn-large btn-primary" %>
 <% end %>
 

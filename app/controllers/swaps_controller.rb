@@ -1,5 +1,13 @@
 class SwapsController < ApplicationController
-	before_action :signed_in_user, only: [:create, :destroy, :update]
+	before_action :signed_in_user, only: [:index, :create, :destroy, :update]
+
+	def index
+		if (params[:tag])
+			@swaps = Swap.tagged_with(params[:tag])
+		else
+			@swaps = Swap.all
+		end
+	end
 
 	def create
 		@swap = current_user.swaps.build(swap_params)
@@ -23,6 +31,6 @@ class SwapsController < ApplicationController
 	private
 
 		def swap_params
-			params.require(:swap).permit(:description, :offer, :want)
+			params.require(:swap).permit(:description, :offer, :want, :tag_list)
 		end
 end

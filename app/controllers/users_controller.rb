@@ -16,10 +16,18 @@ class UsersController < ApplicationController
   end
 
   def show
-  	@user = User.find(params[:id]) # it'll return the user id
+
+    @user = User.find(params[:id]) # it'll return the user id
+    if params[:tag]
+      @swaps = @user.swaps.tagged_with(params[:tag])
+    else
+      @swaps = @user.swaps.paginate(page: params[:page])
+    end
+
+  	
     @microposts = @user.microposts.paginate(page: params[:page])
     @micropost = Micropost.new #CHECK: is there a better way? 
-    @swaps = @user.swaps.paginate(page: params[:page])
+    
     @swap = Swap.new #CHECK: is there a better way?
   end
 
