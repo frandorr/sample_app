@@ -2,6 +2,21 @@
   <span class="description"><b><%= swap.description %></b></span>
   <span class="offer"><b>Offer: </b><%= swap.offer %></span>
   <span class="want"><b>Want: </b><%= swap.want %></span>
+
+  <% if not swap.place.nil? %>
+  <span class="place">
+    <b>Place: </b> <%=   
+                  link_to swap.place, place_path( 
+                                          :latitude => swap.latitude, 
+                                          :longitude => swap.longitude) %>
+  </span>
+
+  <% end %>
+
+  <span class="coordinate">
+    <b>Latitude: </b> <%= swap.latitude %> 
+  </span>
+
   <span class="tag_list">
   	<b>Tags: </b> <%= raw swap.tag_list.map { |t| link_to t, 
   								tag_path(t) }.join(', ') %>

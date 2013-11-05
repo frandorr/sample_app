@@ -5,11 +5,16 @@
   </div>
 
   <div class="field">
-  	<%= f.text_area :offer, placeholder: "What you offer" %>
+  	<%= f.text_field :offer, placeholder: "What you offer" %>
   </div>
 
   <div class="field">
-  	<%= f.text_area :want, placeholder: "What you want" %>
+  	<%= f.text_field :want, placeholder: "What you want" %>
+  </div>
+
+  <div class="field">
+    <%= f.text_field :place,
+                  placeholder: "City, Province, Country" %>
   </div>
 
   <div class="field">

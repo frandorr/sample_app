@@ -9,6 +9,16 @@ class SwapsController < ApplicationController
 		end
 	end
 
+	def nearby
+		if (not params.nil?)
+			latitude = params[:latitude]
+			longitude = params[:longitude]
+			@swaps = Swap.near([latitude, longitude], 20)
+		else
+			@swaps = Swap.all?
+		end
+	end
+
 	def create
 		@swap = current_user.swaps.build(swap_params)
 		if @swap.save
@@ -31,6 +41,6 @@ class SwapsController < ApplicationController
 	private
 
 		def swap_params
-			params.require(:swap).permit(:description, :offer, :want, :tag_list)
+			params.require(:swap).permit(:description, :offer, :want, :place, :tag_list)
 		end
 end

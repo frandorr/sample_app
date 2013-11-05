@@ -7,6 +7,11 @@ class Swap < ActiveRecord::Base
 
 	VALID_TAG_REGEX = /\A(\S+(,\s*)?)+\z/i
 
+	# Tags:
 	validates :tag_list, presence:true, format: { with: VALID_TAG_REGEX } 
 	acts_as_taggable
+
+	# Geocoder:
+	geocoded_by :place
+	after_validation :geocode
 end

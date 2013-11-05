@@ -34,6 +34,7 @@ SampleApp::Application.routes.draw do
   resources :swaps, only: [:index, :create, :destroy, :update]
 
   get 'tags/:tag', to: 'swaps#index', as: :tag
+  get 'place/', to: 'swaps#nearby'
 
   root  'static_pages#home'
   match '/help',    to: 'static_pages#help',    via: 'get'
