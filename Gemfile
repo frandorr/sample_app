@@ -11,7 +11,9 @@ gem 'bcrypt-ruby', '3.0.1' #irreversibly encript pass to pasword hash
 gem 'faker', '1.1.2'
 gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
+#Tags:
 gem 'acts-as-taggable-on', '2.4.1'
+#Geolocalization:
 gem 'geocoder', '1.1.8'
 
 group :development, :test do
