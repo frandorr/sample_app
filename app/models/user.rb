@@ -46,6 +46,10 @@ class User < ActiveRecord::Base
 		#underlying SQL query (avoid SQL injection)
 		# Micropost.where("user_id = ?", id)
 		Micropost.from_users_followed_by(self)
+	end 
+
+	def swaps_feed
+		Swap.where("user_id = ?", id)
 	end
 
 	def following?(other_user)

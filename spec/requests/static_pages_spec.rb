@@ -23,6 +23,8 @@ describe "Static pages" do
       before do 
         FactoryGirl.create(:micropost, user: user, content: "Lorem ipsum" )
         FactoryGirl.create(:micropost, user: user, content: "Dolor sie amet")
+        FactoryGirl.create(:swap, user: user, description: "Holi")
+        FactoryGirl.create(:swap, user: user, description: "Chau")
         sign_in user
         visit root_path
       end
@@ -33,6 +35,12 @@ describe "Static pages" do
         end
       end
 
+      it "should render the user's swaps feed" do 
+        user.swaps_feed.each do |item|
+          expect(page).to have_selector("li#swap#{item.id}", 
+                                text: item.description)
+        end
+      end
       describe "follower/following counts" do 
         let(:other_user) { FactoryGirl.create(:user) }
         before do 
