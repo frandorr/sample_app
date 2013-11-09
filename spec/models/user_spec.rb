@@ -235,10 +235,12 @@ describe User do
 
       before { @user.save }
       let!(:older_swap) do 
-        FactoryGirl.create(:swap, user: @user, created_at: 1.day.ago)
+        FactoryGirl.create(:swap, user: @user, created_at: 1.day.ago,
+                            place: "Buenos Aires")
       end
       let!(:newer_swap) do 
-        FactoryGirl.create(:swap, user: @user, created_at: 1.hour.ago)
+        FactoryGirl.create(:swap, user: @user, created_at: 1.hour.ago,
+                            place: "Buenos Aires")
       end
 
       it "should have the rigth swap in the right order" do 
@@ -256,12 +258,24 @@ describe User do
 
       describe "status" do
         let(:distant_swap) do
-          FactoryGirl.create(:swap, user: FactoryGirl.create(:user))
+          FactoryGirl.create(:swap, user: FactoryGirl.create(:user), 
+                                    place: "Paris")
         end
 
-        its(:swaps_feed) { should include(newer_swap) }
-        its(:swaps_feed) { should include(older_swap) }
+        let(:near_swap) do 
+          FactoryGirl.create(:swap, user: FactoryGirl.create(:user),
+                                    place: "Florida, Buenos Aires")
+        end
+
+        its(:swaps_feed) do
+          Swap.near(@user.ip_address) do |swap|
+            should include(swap)
+          end
+        end
+        # its(:swaps_feed) { should include(newer_swap) }
+        # its(:swaps_feed) { should include(older_swap) }
         its(:swaps_feed) { should_not include(distant_swap) }
+        its(:swaps_feed) { should include(near_swap) }
       end
 
     end

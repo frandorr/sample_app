@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   before_action :correct_user,   only: [:edit, :update]
   before_action :admin_user,     only: :destroy
 
+
   def index
     @users = User.paginate(page: params[:page])
   end
@@ -34,6 +35,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params) #user params is defined as private (strong)
+    @user.ip_address = "24.232.154.67"
     if @user.save
     	#user signin after signup
     	sign_in @user
