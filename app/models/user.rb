@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 
+	# I can't access request method from model, cause its a controller thing
+
 	#dependent: :destroy = when destroy user, destroy its microposts
 	has_many :microposts, dependent: :destroy
 	# users are now identified with the foreign key follower_id
@@ -21,7 +23,7 @@ class User < ActiveRecord::Base
 	#Emails downcase to avoid problems with database
 	before_save { self.email = email.downcase }	
 	before_create :create_remember_token
-
+	
 	validates :name,  presence: true, length: { maximum: 50 }
 	# /i = case insensitive, \A = begining of string, \z = match end of string
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
@@ -32,6 +34,13 @@ class User < ActiveRecord::Base
   	#password:
   	has_secure_password #It gives a lot of features of passwords
 	validates :password, length: { minimum: 6 }
+
+
+	#Geocode:
+	geocoded_by :ip_address,
+  	:latitude => :lat, :longitude => :lon
+
+	after_validation :geocode 
 
 	def User.new_remember_token
 		SecureRandom.urlsafe_base64
@@ -46,6 +55,10 @@ class User < ActiveRecord::Base
 		#underlying SQL query (avoid SQL injection)
 		# Micropost.where("user_id = ?", id)
 		Micropost.from_users_followed_by(self)
+	end 
+
+	def swaps_feed
+		Swap.near_user_ip(self)
 	end
 
 	def following?(other_user)

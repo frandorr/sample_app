@@ -29,6 +29,7 @@ describe User do
   it { should respond_to(:unfollow!) }
   #swaps
   it { should respond_to(:swaps) }
+  it { should respond_to(:swaps_feed) }
 
   it { should be_valid }
   it { should_not be_admin }
@@ -228,27 +229,55 @@ describe User do
     end
   end
 
-  describe "swap associations" do 
+  describe "swaps" do
 
-    before { @user.save }
-    let!(:older_swap) do 
-      FactoryGirl.create(:swap, user: @user, created_at: 1.day.ago)
-    end
-    let!(:newer_swap) do 
-      FactoryGirl.create(:swap, user: @user, created_at: 1.hour.ago)
-    end
+    describe "swap associations" do 
 
-    it "should have the rigth swap in the right order" do 
-      expect(@user.swaps.to_a).to eq [newer_swap, older_swap]
-    end
-
-    it "should destroy associated swaps" do 
-      swaps = @user.swaps.to_a
-      @user.destroy
-      expect(swaps).not_to be_empty
-      swaps.each do |swap|
-        expect(Swap.where(id: swap.id)).to be_empty
+      before { @user.save }
+      let!(:older_swap) do 
+        FactoryGirl.create(:swap, user: @user, created_at: 1.day.ago,
+                            place: "Buenos Aires")
       end
+      let!(:newer_swap) do 
+        FactoryGirl.create(:swap, user: @user, created_at: 1.hour.ago,
+                            place: "Buenos Aires")
+      end
+
+      it "should have the rigth swap in the right order" do 
+        expect(@user.swaps.to_a).to eq [newer_swap, older_swap]
+      end
+
+      it "should destroy associated swaps" do 
+        swaps = @user.swaps.to_a
+        @user.destroy
+        expect(swaps).not_to be_empty
+        swaps.each do |swap|
+          expect(Swap.where(id: swap.id)).to be_empty
+        end
+      end
+
+      describe "status" do
+        let(:distant_swap) do
+          FactoryGirl.create(:swap, user: FactoryGirl.create(:user), 
+                                    place: "Paris")
+        end
+
+        let(:near_swap) do 
+          FactoryGirl.create(:swap, user: FactoryGirl.create(:user),
+                                    place: "Florida, Buenos Aires")
+        end
+
+        its(:swaps_feed) do
+          Swap.near(@user.ip_address) do |swap|
+            should include(swap)
+          end
+        end
+        # its(:swaps_feed) { should include(newer_swap) }
+        # its(:swaps_feed) { should include(older_swap) }
+        its(:swaps_feed) { should_not include(distant_swap) }
+        its(:swaps_feed) { should include(near_swap) }
+      end
+
     end
   end
 end

@@ -14,4 +14,8 @@ class Swap < ActiveRecord::Base
 	# Geocoder:
 	geocoded_by :place
 	after_validation :geocode
+
+	def self.near_user_ip(user)
+		Swap.near(user.ip_address)
+	end
 end
