@@ -7,6 +7,10 @@ class SwapsController < ApplicationController
 		else
 			@swaps = Swap.all
 		end
+
+		@search = Swap.search(params[:q])
+		@swaps = @search.result
+
 	end
 
 	def nearby
