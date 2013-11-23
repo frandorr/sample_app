@@ -31,7 +31,7 @@ class SwapsController < ApplicationController
 		else
 			@micropost = current_user.microposts.build
 			@feed_items = current_user.feed.paginate(page: params[:page])
-			@swaps_feed_items = current_user.swaps_feed.paginate(page: params[:page])
+			@swaps_feed_items = current_user.swaps_feed("24.232.154.67").paginate(page: params[:page])
 			render 'static_pages/home'
 		end
 	end

@@ -12,7 +12,7 @@ class MicropostsController < ApplicationController
                                        #I use this so @swap isnt nil 
                                        #But i dont want to instantiate it from
                                        #micropost create
-      @swaps_feed_items = current_user.swaps_feed.paginate(page: params[:page])
+      @swaps_feed_items = current_user.swaps_feed("24.232.154.67").paginate(page: params[:page])
       @feed_items = current_user.feed.paginate(page: params[:page])
       render 'static_pages/home'
     end

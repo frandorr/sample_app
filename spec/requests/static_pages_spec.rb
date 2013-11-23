@@ -36,7 +36,7 @@ describe "Static pages" do
       end
 
       it "renders the user's swaps feed" do 
-        user.swaps_feed.each do |item|
+        user.swaps_feed("24.232.154.67").each do |item|
           expect(page).to have_selector("li#swap#{item.id}", 
                                 text: item.description)
         end
