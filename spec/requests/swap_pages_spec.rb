@@ -14,7 +14,7 @@ describe "Swap pages" do
 
     describe "with invalid information" do
 
-      it "should not create a swap" do
+      it "does not create a swap" do
         expect { click_button "Create" }.not_to change(Swap, :count)
       end
 
@@ -31,7 +31,7 @@ describe "Swap pages" do
 							 fill_in 'swap_want', with: "What I want"
                fill_in 'swap_tag_list', with: "tango" }
 
-      it "should create a swap" do
+      it "creates a swap" do
         expect { click_button "Create" }.to change(Swap, :count).by(1)
       end
     end

@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
 	#Emails downcase to avoid problems with database
 	before_save { self.email = email.downcase }	
 	before_create :create_remember_token
+
 	
 	validates :name,  presence: true, length: { maximum: 50 }
 	# /i = case insensitive, \A = begining of string, \z = match end of string
@@ -57,8 +58,10 @@ class User < ActiveRecord::Base
 		Micropost.from_users_followed_by(self)
 	end 
 
-	def swaps_feed
-		Swap.near_user_ip(self)
+	#this method get the swaps near the ip parameter. Its called from the
+	# static_pages_controller
+	def swaps_feed(ip)
+		Swap.near_ip(ip)
 	end
 
 	def following?(other_user)
@@ -77,4 +80,5 @@ class User < ActiveRecord::Base
 		def create_remember_token
 			self.remember_token = User.encrypt(User.new_remember_token)
 		end
+
 end

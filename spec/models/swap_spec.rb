@@ -64,7 +64,7 @@ describe Swap do
 
   describe "tag_list" do
     describe "when format is invalid" do
-      it "should be invalid" do
+      it "is invalid" do
         #%w is a shortcut for an array %w[hola como estas] = ["hola", "como", "estas"]
         tag_list = ["collar de rro"]
         tag_list.each do |invalid_tag|
@@ -75,7 +75,7 @@ describe Swap do
     end
 
     describe "when format is valid" do
-      it "should be valid" do
+      it "is valid" do
         #%w is a shortcut for an array %w[hola como estas] = ["hola", "como", "estas"]
         tag_list = ["collar, de, rro",  "gato", "pardo",
                        "carlit,osasds"]

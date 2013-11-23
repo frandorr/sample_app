@@ -25,6 +25,12 @@ group :development, :test do
   gem 'spork-rails', '4.0.0'
   gem 'guard-spork', '1.5.0'
   gem 'childprocess', '0.3.6'
+  #format to rspec
+  gem 'fuubar'
+  #Error if test start with should
+  gem 'should_not', '1.0.0'
+  #Clean should in specs
+  gem 'should_clean', '0.0.3'
 end
 
 group :test do

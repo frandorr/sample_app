@@ -7,6 +7,8 @@ class SessionsController < ApplicationController
   #any object other than nil is true. And user.authenticate becomes true
   #iff the password is correct
   if user && user.authenticate(params[:session][:password])
+    # When user sign_in, ip_address updates
+    user.update_attributes(:ip_address => "24.232.154.67" )
     # Sign the user in and redirect to the user's show page.
     sign_in user
     redirect_back_or user

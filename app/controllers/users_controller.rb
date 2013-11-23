@@ -35,7 +35,6 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params) #user params is defined as private (strong)
-    @user.ip_address = "24.232.154.67"
     if @user.save
     	#user signin after signup
     	sign_in @user

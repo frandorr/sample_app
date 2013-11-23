@@ -20,7 +20,7 @@ describe "User pages" do
 
       it { should have_selector('div.pagination') }
 
-      it "should list each user" do 
+      it "lists each user" do 
         User.paginate(page: 1).each do |user|
           expect(page).to have_selector('li', text: user.name)
         end
@@ -39,7 +39,7 @@ describe "User pages" do
         end
 
         it { should have_link('delete', href: user_path(User.first)) }
-        it "should be able to delete another user" do
+        it "is able to delete another user" do
           expect do
             click_link('delete', match: :first)
           end.to change(User, :count).by(-1)
@@ -85,7 +85,7 @@ describe "User pages" do
       describe "following a user" do 
         before { visit user_path(other_user) }
 
-        it "should increment the followed user count" do 
+        it "increments the followed user count" do 
           expect do 
             click_button "Follow"
           end.to change(other_user.followers, :count).by(1)
@@ -103,13 +103,13 @@ describe "User pages" do
           visit user_path(other_user)
         end
 
-        it "should decrement the followed user count" do 
+        it "decrements the followed user count" do 
           expect do
             click_button "Unfollow"
           end.to change(user.followed_users, :count).by(-1)
         end
 
-        it "should decrement the other user's followers count" do
+        it "decrements the other user's followers count" do
           expect do
             click_button "Unfollow"
           end.to change(other_user.followers, :count).by(-1)
@@ -132,7 +132,7 @@ describe "User pages" do
 
     describe "with invalid information" do
     # User shouldn't create account without filling the form:
-      it "should not create a user" do
+      it "does not create a user" do
         expect { click_button submit }.not_to change(User, :count)
 	  end
 
@@ -153,7 +153,7 @@ describe "User pages" do
         fill_in "Confirmation", with: "foobar"
       end
 
-      it "should create a user" do
+      it "creates a user" do
         expect { click_button submit }.to change(User, :count).by(1)
       end
 

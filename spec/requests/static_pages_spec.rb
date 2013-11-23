@@ -29,13 +29,13 @@ describe "Static pages" do
         visit root_path
       end
 
-      it "should render the user's feed" do 
+      it "renders the user's feed" do 
         user.feed.each do |item|
           expect(page).to have_selector("li##{item.id}", text: item.content)
         end
       end
 
-      it "should render the user's swaps feed" do 
+      it "renders the user's swaps feed" do 
         user.swaps_feed.each do |item|
           expect(page).to have_selector("li#swap#{item.id}", 
                                 text: item.description)
@@ -94,7 +94,7 @@ describe "Static pages" do
 
 
   #Test links route to correct url:
-  it "should have the right links on the layout" do
+  it "has the right links on the layout" do
     visit root_path
     click_link "About"
     expect(page).to have_title(full_title('About Us'))

@@ -63,7 +63,7 @@ describe User do
   #Check Email is valid:
 
    describe "when email format is invalid" do
-    it "should be invalid" do
+    it "is invalid" do
       addresses = %w[user@foo,com user_at_foo.org example.user@foo.
                      foo@bar_baz.com foo@bar+baz.com foo@bar..com]
       addresses.each do |invalid_address|
@@ -74,7 +74,7 @@ describe User do
   end
 
   describe "when email format is valid" do
-    it "should be valid" do
+    it "is valid" do
       addresses = %w[user@foo.COM A_US-ER@f.b.org frst.lst@foo.jp 
                                           a+b@baz.cn foo@bar-.com]
       addresses.each do |valid_address|
@@ -97,7 +97,7 @@ describe User do
   describe "email address with mixed case" do
     let(:mixed_case_email) { "Foo@ExAMPle.CoM" }
 
-    it "should be saved as all lower-case" do
+    it "is saved as all lower-case" do
       @user.email = mixed_case_email
       @user.save
       expect(@user.reload.email).to eq mixed_case_email.downcase
@@ -167,7 +167,7 @@ describe User do
       FactoryGirl.create(:micropost, user: @user, created_at: 1.hour.ago)
     end
 
-    it "should have the right microposts in the right order" do
+    it "has the right microposts in the right order" do
       #to_a = to array
       expect(@user.microposts.to_a).to eq [newer_micropost, older_micropost]
     end
@@ -243,11 +243,11 @@ describe User do
                             place: "Buenos Aires")
       end
 
-      it "should have the rigth swap in the right order" do 
+      it "has the rigth swap in the right order" do 
         expect(@user.swaps.to_a).to eq [newer_swap, older_swap]
       end
 
-      it "should destroy associated swaps" do 
+      it "destroys associated swaps" do 
         swaps = @user.swaps.to_a
         @user.destroy
         expect(swaps).not_to be_empty
@@ -256,26 +256,28 @@ describe User do
         end
       end
 
+
       describe "status" do
+        let(:near_swap) do 
+            FactoryGirl.create(:swap, user: FactoryGirl.create(:user),
+                                      place: "Florida, Buenos Aires")
+          end
         let(:distant_swap) do
           FactoryGirl.create(:swap, user: FactoryGirl.create(:user), 
                                     place: "Paris")
         end
+        it "check near swaps " do
+          
 
-        let(:near_swap) do 
-          FactoryGirl.create(:swap, user: FactoryGirl.create(:user),
-                                    place: "Florida, Buenos Aires")
-        end
+          @user.swaps_feed("24.232.154.67") { should include(near_swap) }
+          @user.swaps_feed("24.232.154.67") { should_not include(distant_swap) }
 
-        its(:swaps_feed) do
-          Swap.near(@user.ip_address) do |swap|
-            should include(swap)
+          @user.swaps_feed("24.232.154.67") do
+            Swap.near_ip("24.232.154.67") do |swap|
+              should include(swap)
+            end
           end
         end
-        # its(:swaps_feed) { should include(newer_swap) }
-        # its(:swaps_feed) { should include(older_swap) }
-        its(:swaps_feed) { should_not include(distant_swap) }
-        its(:swaps_feed) { should include(near_swap) }
       end
 
     end
