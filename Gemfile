@@ -17,6 +17,10 @@ gem 'acts-as-taggable-on', '2.4.1'
 gem 'geocoder', '1.1.8'
 #Searching:
 gem 'ransack', '1.1.0'
+#Omniauth:
+gem 'omniauth-facebook'
+#envVars:
+gem 'figaro', '0.7.0'
 
 group :development, :test do
   gem 'sqlite3', '1.3.7'

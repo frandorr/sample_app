@@ -17,3 +17,6 @@
 
 #Ignore custom script:
 *.sh
+
+# Ignore application configuration
+/config/application.yml
