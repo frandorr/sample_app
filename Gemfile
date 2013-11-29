@@ -19,6 +19,10 @@ gem 'geocoder', '1.1.8'
 gem 'ransack', '1.1.0'
 #Omniauth:
 gem 'omniauth-facebook'
+gem 'omniauth'
+gem 'twitter'
+gem 'devise'
+gem 'fb_graph'
 #envVars:
 gem 'figaro', '0.7.0'
 
