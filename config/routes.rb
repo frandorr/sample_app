@@ -1,5 +1,9 @@
 SampleApp::Application.routes.draw do
+  devise_for :users
   #REST resources
+  devise_scope :user do 
+    match '/sessions/user', to: 'devise/sessions#create', via: :post
+  end
 
   resources :users do
     # routes lool like /users/1/following and /users/1/followers
@@ -19,7 +23,7 @@ SampleApp::Application.routes.draw do
 # PATCH /users/1  update  user_path(user) update user
 # DELETE  /users/1  destroy user_path(user) delete user
 
-  resources :sessions, only: [:new, :create, :destroy]
+  # resources :sessions, only: [:new, :create, :destroy]
 
 #   POST  /microposts create  create a new micropost
 # DELETE  /microposts/1 destroy delete micropost with id 1
@@ -42,10 +46,10 @@ SampleApp::Application.routes.draw do
   match '/contact', to: 'static_pages#contact', via: 'get'
 
   #users:
-  match '/signup',  to: 'users#new',  via: 'get'
-  #Authentication:
-  match '/signin',  to: 'sessions#new',         via: 'get'
-  match '/signout', to: 'sessions#destroy',     via: 'delete'
+  # match '/signup',  to: 'users#new',  via: 'get'
+  # #Authentication:
+  # match '/signin',  to: 'sessions#new',         via: 'get'
+  # match '/signout', to: 'sessions#destroy',     via: 'delete'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

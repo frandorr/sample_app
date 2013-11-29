@@ -1,4 +1,10 @@
 class User < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
+
+   attr_accessor :login
 
 	# I can't access request method from model, cause its a controller thing
 
@@ -22,7 +28,7 @@ class User < ActiveRecord::Base
 	#before_save callback. 
 	#Emails downcase to avoid problems with database
 	before_save { self.email = email.downcase }	
-	before_create :create_remember_token
+	# before_create :create_remember_token
 
 	
 	validates :name,  presence: true, length: { maximum: 50 }
@@ -33,7 +39,7 @@ class User < ActiveRecord::Base
   									uniqueness: { case_sensitive: false } 
 
   	#password:
-  	has_secure_password #It gives a lot of features of passwords
+  	# has_secure_password #It gives a lot of features of passwords
 	validates :password, length: { minimum: 6 }
 
 
@@ -75,10 +81,22 @@ class User < ActiveRecord::Base
 	def unfollow!(other_user)
 		relationships.find_by(followed_id: other_user.id).destroy!
 	end
-	private
 
-		def create_remember_token
-			self.remember_token = User.encrypt(User.new_remember_token)
-		end
+
+	def self.find_first_by_auth_conditions(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions).where(["lower(name) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+    else
+      where(conditions).first
+  	end
+  end
+
+
+	# private
+
+	# 	# def create_remember_token
+	# 	# 	self.remember_token = User.encrypt(User.new_remember_token)
+	# 	# end
 
 end
