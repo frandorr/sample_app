@@ -2,6 +2,7 @@ require 'rubygems'
 require 'spork'
 require 'should_not/rspec'
 
+
 Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
@@ -44,6 +45,7 @@ Spork.prefork do
     #     --seed 1234
     config.order = "random"
     config.include Capybara::DSL
+    config.include Devise::TestHelpers, :type => :controller
   end
 end
 

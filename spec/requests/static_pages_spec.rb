@@ -84,7 +84,7 @@ describe "Static pages" do
   end
 
   describe "Signup page" do
-    before { visit signup_path }
+    before { visit new_user_path }
     let(:heading) { 'Sign up' }
     let(:page_title) { 'Sign up' }
 
