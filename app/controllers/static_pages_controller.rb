@@ -3,7 +3,7 @@ class StaticPagesController < ApplicationController
   	if signed_in?
       # current_user.update_attributes(:ip_address => request.ip )
       # current_user.ip_address = "24.232.154.67"
-
+      current_user_ip = "24.232.154.67"
       #Search for the data of current_user_ip
       s = Geocoder.search(current_user_ip)
 
