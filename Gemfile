@@ -25,6 +25,8 @@ gem 'devise'
 gem 'fb_graph'
 #envVars:
 gem 'figaro', '0.7.0'
+#simple form
+gem 'simple_form'
 
 group :development, :test do
   gem 'sqlite3', '1.3.7'
